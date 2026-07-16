@@ -18,10 +18,10 @@
 v0の最重要成果物は、コンポーネントそのものではなく **「1コンポーネント = 1ファイル」形式の確定** である。
 最初の1個（Button）を末端まで作り切り、以降の全コンポーネントの鋳型にする。
 
-- [ ] リポジトリのscaffolding（TypeScript `strict`、React、Tailwind、テスト環境）
-- [ ] 単一ファイル形式の仕様を確定：実装 + 型 + ドキュメント + 使用例 + 機械可読manifest `{ intent, props, states, a11y, examples }` を1つの `.tsx` に co-locate
-- [ ] **Button** をリファレンス実装として完成（a11y含む）
-- [ ] one-shot generation 評価の最小プロトタイプ：代表プロンプト集に対してLLMがButtonを修正なしで正しく使えるかを手動で検証
+- [x] リポジトリのscaffolding（TypeScript `strict`、React、Tailwind、テスト環境）
+- [x] 単一ファイル形式の仕様を確定：実装 + 型 + ドキュメント + 使用例 + 機械可読manifest `{ intent, props, states, a11y, examples }` を1つの `.tsx` に co-locate
+- [x] **Button** をリファレンス実装として完成（a11y含む）
+- [x] one-shot generation 評価の最小プロトタイプ：代表プロンプト集に対してLLMがButtonを修正なしで正しく使えるかを手動で検証（初回 5/5 — `evals/prompts/button.md`）
 
 **完了条件**: Buttonのファイルを読んだだけで、LLMが型・使い方・a11y要件の全てを把握できる。形式に未解決の設計課題がない。
 
