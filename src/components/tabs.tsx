@@ -80,13 +80,14 @@ export const manifest = {
     "TabPanel.selected": "Required boolean. Hides the panel via the native `hidden` attribute when false.",
     "TabPanel.*": "Every other native <div> attribute passes through (id, aria-labelledby, ...).",
     className:
-      "Escape hatch on every primitive: Tailwind classes appended after the defaults, so they win when they conflict.",
+      "Escape hatch on every primitive: Tailwind classes appended after the defaults. Both sets land in the generated CSS, so prefix with `!` (e.g. `!border-blue-500`, `!p-0`) when overriding a conflicting default utility.",
   },
   states: ["selected", "unselected", "focus-visible", "disabled (Tab)"],
   a11y: [
     "role=\"tablist\" / role=\"tab\" / role=\"tabpanel\" are wired automatically.",
     "Roving tabindex: only the selected Tab has tabIndex=0.",
-    "Arrow keys move focus between enabled tabs and activate the focused one (automatic activation).",
+    "Horizontal orientation only (arrow keys are Left/Right). No vertical variant in v0.",
+    "Automatic activation: arrow keys move focus AND trigger the sibling Tab's onClick. If each tab's onClick does heavy work (e.g. loads a panel), arrowing across N tabs fires N onClicks — consider deferring that work.",
     "Pair each Tab with its TabPanel via aria-controls (on Tab) + id (on TabPanel), and each TabPanel to its Tab via aria-labelledby.",
   ],
   examples: [

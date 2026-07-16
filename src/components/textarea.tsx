@@ -27,7 +27,7 @@ export const manifest = {
       "Every ComponentPropsWithRef<'textarea'> attribute passes through unchanged (value, onChange, placeholder, rows, cols, aria-*, ref, ...).",
     rows: "Native attribute controlling visible height in lines. Defaults to the native 2.",
     className:
-      "Escape hatch: Tailwind classes appended after the defaults, so they win when they conflict.",
+      "Escape hatch: Tailwind classes appended after the defaults. Both sets land in the generated CSS, so prefix with `!` (e.g. `!p-0`, `!w-auto`) when overriding a conflicting default utility.",
   },
   states: ["idle", "focus-visible", "disabled", "placeholder"],
   a11y: [

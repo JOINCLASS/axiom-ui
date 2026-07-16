@@ -27,7 +27,7 @@ export const manifest = {
     "...native":
       "Every ComponentPropsWithRef<'dialog'> attribute passes through unchanged (open, onClose, aria-*, ref, ...).",
     className:
-      "Escape hatch: Tailwind classes appended after the defaults. The ::backdrop pseudo-element is styled via the `backdrop:` variant.",
+      "Escape hatch: Tailwind classes appended after the defaults. Both sets land in the generated CSS, so prefix with `!` (e.g. `!p-0`, `!max-w-full`) when overriding a conflicting default utility. The ::backdrop pseudo-element is styled via the `backdrop:` variant.",
   },
   states: ["closed", "open (non-modal)", "open (modal via showModal())"],
   a11y: [

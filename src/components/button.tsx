@@ -28,7 +28,7 @@ export const manifest = {
       "Every ComponentPropsWithRef<'button'> attribute passes through unchanged (onClick, disabled, aria-*, form attributes, ref, ...).",
     type: '"button" | "submit" | "reset" — defaults to "button" so it never submits a form by accident.',
     className:
-      "Escape hatch: Tailwind classes appended after the defaults, so they win when they conflict.",
+      "Escape hatch: Tailwind classes appended after the defaults. Both sets land in the generated CSS, so prefix with `!` (e.g. `!p-0`, `!w-auto`) when overriding a conflicting default utility.",
   },
   states: ["idle", "hover", "focus-visible", "active", "disabled"],
   a11y: [

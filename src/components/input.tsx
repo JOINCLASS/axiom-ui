@@ -28,7 +28,7 @@ export const manifest = {
       "Every ComponentPropsWithRef<'input'> attribute passes through unchanged (type, value, onChange, placeholder, aria-*, ref, ...).",
     type: 'Native input type: "text" (default) | "email" | "password" | "number" | "search" | "tel" | "url" | "date" | ... Set explicitly when you need a specific type.',
     className:
-      "Escape hatch: Tailwind classes appended after the defaults, so they win when they conflict.",
+      "Escape hatch: Tailwind classes appended after the defaults. Both sets land in the generated CSS, so prefix with `!` (e.g. `!p-0`, `!w-auto`) when overriding a conflicting default utility.",
   },
   states: ["idle", "focus-visible", "disabled", "placeholder"],
   a11y: [

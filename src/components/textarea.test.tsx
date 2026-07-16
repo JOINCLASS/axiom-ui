@@ -26,6 +26,13 @@ describe("Textarea", () => {
     expect(screen.getByRole("textbox").getAttribute("rows")).toBe("5");
   });
 
+  it("appends className after defaults", () => {
+    render(<Textarea className="min-h-40" />);
+    const classes = screen.getByRole("textbox").className;
+    expect(classes.endsWith("min-h-40")).toBe(true);
+    expect(classes).toContain("rounded-md");
+  });
+
   it("forwards ref", () => {
     let element: HTMLTextAreaElement | null = null;
     render(

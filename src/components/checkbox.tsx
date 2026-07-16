@@ -13,7 +13,7 @@ export function Checkbox({ className, ...props }: CheckboxProps) {
     <input
       type="checkbox"
       className={
-        "h-4 w-4 cursor-pointer rounded border-zinc-300 text-zinc-900 accent-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900 disabled:cursor-not-allowed disabled:opacity-50" +
+        "h-4 w-4 cursor-pointer rounded border-zinc-300 accent-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900 disabled:cursor-not-allowed disabled:opacity-50" +
         (className ? " " + className : "")
       }
       {...props}
@@ -29,7 +29,7 @@ export const manifest = {
       "Every native <input> attribute except type passes through unchanged (checked, defaultChecked, onChange, name, value, aria-*, ref, ...).",
     role: 'Set to "switch" when semantically a toggle switch. Combine with visual className to render as a pill toggle.',
     className:
-      "Escape hatch: Tailwind classes appended after the defaults, so they win when they conflict.",
+      "Escape hatch: Tailwind classes appended after the defaults. Both sets land in the generated CSS, so prefix with `!` (e.g. `!h-6`, `!accent-red-600`) when overriding a conflicting default utility.",
   },
   states: ["idle", "checked", "focus-visible", "disabled"],
   a11y: [

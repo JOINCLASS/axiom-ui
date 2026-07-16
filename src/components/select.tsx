@@ -29,7 +29,7 @@ export const manifest = {
       "Every ComponentPropsWithRef<'select'> attribute passes through unchanged (value, onChange, name, multiple, aria-*, ref, ...).",
     children: "Native <option> and <optgroup> elements.",
     className:
-      "Escape hatch: Tailwind classes appended after the defaults, so they win when they conflict.",
+      "Escape hatch: Tailwind classes appended after the defaults. Both sets land in the generated CSS, so prefix with `!` (e.g. `!p-0`, `!w-auto`) when overriding a conflicting default utility.",
   },
   states: ["idle", "focus-visible", "disabled"],
   a11y: [
