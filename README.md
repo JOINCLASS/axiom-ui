@@ -1,5 +1,7 @@
 # Axiom UI
 
+English | [日本語](./README.ja.md)
+
 > An open-source UI library designed for the LLM as its primary consumer.
 > LLMを第一の消費者として設計する、オープンソースUIライブラリ。
 
@@ -19,7 +21,7 @@ Every design decision must pass one question:
 
 If it doesn't raise it, we don't build it.
 
-Read the full [Design Philosophy](./DESIGN_PHILOSOPHY.md) (日本語).
+Read the full [Design Philosophy](./DESIGN_PHILOSOPHY.md) (Japanese).
 
 ## Principles
 
