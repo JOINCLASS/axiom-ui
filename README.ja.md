@@ -5,7 +5,51 @@
 > An open-source UI library designed for the LLM as its primary consumer.
 > LLMを第一の消費者として設計する、オープンソースUIライブラリ。
 
-**Status: pre-v0 — 設計フェーズ。** 思想は確定済み。コンポーネントはまだ書かれていない。
+**Status: [v0.1.0](https://www.npmjs.com/package/@joinclass/axiom-ui) — 7コンポーネント・CLI・MCPサーバーがnpmで公開中。**
+
+## インストール
+
+```sh
+# 単発：コンポーネントを自分のリポジトリにコピー
+npx @joinclass/axiom-ui add button
+
+# 何度も使うならインストール
+npm install -D @joinclass/axiom-ui
+npx axiom-ui list
+```
+
+Node.js 22+ と、コピー先プロジェクトに Tailwind CSS が必要です。
+
+## CLI
+
+| コマンド | 動作 |
+|---|---|
+| `axiom-ui list` | 全コンポーネントと intent を1行ずつ表示。 |
+| `axiom-ui add <name> [--dir <path>] [--force]` | `<name>.tsx` をリポジトリにコピー（デフォルト `./src/components/`）。既存ファイルがあれば `--force` なしでは失敗。 |
+| `axiom-ui mcp` | MCPサーバーを stdio で起動（後述）。 |
+
+CLIは**逐次コピー**のみを行う。出荷されたファイル = LLMが見たファイル = あなたに渡るファイル。後処理も依存注入もなし。`add` した瞬間からあなたのコードだ。
+
+## MCPサーバー
+
+Claude Code、Cursor、その他のMCP対応エージェントを `axiom-ui mcp` に接続すると、2つのツールが使えるようになる：
+
+- `list_components` — 全コンポーネントの名前と intent
+- `get_component` — 1コンポーネントの `.tsx` 全文と構造化 manifest
+
+Claude Code の設定例（`~/.claude/mcp.json` またはプロジェクトの `.mcp.json`）：
+
+```json
+{
+  "mcpServers": {
+    "axiom-ui": { "command": "npx", "args": ["-y", "@joinclass/axiom-ui", "mcp"] }
+  }
+}
+```
+
+エージェントは manifest からコンポーネントを発見し、ソースを一度だけ読んで、修正なしで正しい使い方を生成する — ドキュメントURLの貼り付けはもう不要。
+
+`get_component` が返すのは、あなたがインストールしたパッケージバージョンで**出荷された時点**のソース。`add` 後にローカルで編集しても MCPサーバー はそれを反映しない — パッケージスコープのツールであり、ワークスペーススコープではない。これは意図的な設計：manifest はライブラリが**出荷するもの**を記述するのであって、あなたが所有するものを記述するのではない。
 
 ---
 
