@@ -45,7 +45,8 @@
     "eval": "node --experimental-strip-types evals/run.ts",
     "deletion-ratio": "sh scripts/deletion-ratio.sh",
     "build": "node --experimental-strip-types scripts/build.ts",
-    "prepublishOnly": "pnpm typecheck && pnpm test && pnpm gate && pnpm build"
+    "smoke": "node --experimental-strip-types scripts/smoke.ts",
+    "prepublishOnly": "pnpm typecheck && pnpm test && pnpm gate && pnpm build && pnpm smoke"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0"

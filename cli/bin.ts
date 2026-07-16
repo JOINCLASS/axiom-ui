@@ -9,14 +9,16 @@ const [subcommand, ...rest] = process.argv.slice(2);
 
 switch (subcommand) {
   case "add":
-    await runAdd(rest);
+    runAdd(rest);
     break;
   case "list":
     runList();
     break;
-  case "mcp":
-    await (await import("../mcp/server.js")).runMcp();
+  case "mcp": {
+    const { runMcp } = await import("../mcp/server.js");
+    await runMcp();
     break;
+  }
   case undefined:
   case "-h":
   case "--help":

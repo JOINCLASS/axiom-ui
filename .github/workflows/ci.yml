@@ -24,3 +24,7 @@ jobs:
         run: pnpm test
       - name: Hard gate — token/component and bundle/component
         run: pnpm gate
+      - name: Build (templates + manifests.json + dist)
+        run: pnpm build
+      - name: Smoke test (CLI + MCP)
+        run: pnpm smoke

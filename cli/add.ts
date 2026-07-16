@@ -12,7 +12,7 @@ import { loadManifests } from "./manifests.js";
 const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const templatesDir = join(packageRoot, "templates");
 
-export async function runAdd(args: string[]): Promise<void> {
+export function runAdd(args: string[]): void {
   let name: string | undefined;
   let dir = "./src/components";
   let force = false;

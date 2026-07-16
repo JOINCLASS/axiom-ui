@@ -27,3 +27,8 @@ Two tools, `list_components` and `get_component`. Write tools were considered an
 ### Requires
 
 Node.js 22+, React 19, Tailwind CSS v4 in the consuming project.
+
+### Known limitations
+
+- **Runtime dependency size.** `@modelcontextprotocol/sdk` pulls in a fair number of transitive dependencies (express, hono, ajv, …) that the stdio-only MCP server does not need. A future split into `axiom-ui` (add/list) + `axiom-ui-mcp` (MCP server) is the intended fix; not blocking for v0.
+- **Stale `manifests.json` after `add`.** `axiom-ui mcp` serves the manifest that shipped in the installed package — it does not reflect local edits to copied components. Intentional; the manifest describes what was shipped, not what you own.

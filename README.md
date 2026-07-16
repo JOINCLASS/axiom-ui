@@ -9,6 +9,9 @@ English | [日本語](./README.ja.md)
 
 ## Install
 
+> Until `@joinclass/axiom-ui` is published to npm, install directly from GitHub:
+> `npm install -D github:JOINCLASS/axiom-ui`
+
 ```sh
 # One-shot: copy a component into your repo
 npx @joinclass/axiom-ui add button
@@ -48,6 +51,8 @@ Example Claude Code config (`~/.claude/mcp.json` or per-project `.mcp.json`):
 ```
 
 The agent discovers components via the manifest, reads the source once, and generates correct usage in a single shot — no docs URL to paste.
+
+`get_component` always returns the **original** source that shipped in the package version you installed. If you edit a component after running `add`, the MCP server won't reflect your local edits — it's a package-scope tool, not a workspace-scope one. This is intentional: the manifest describes what the library ships, not what you own.
 
 ---
 
