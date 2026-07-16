@@ -35,10 +35,11 @@ The five-step algorithm — applied in order, irreversibly:
 
 | Decision | Consequence |
 |---|---|
-| **1 component = 1 file** | Implementation, types, docs, examples, and a machine-readable manifest co-located. Fits in a single context window — by constraint, not by luck. |
+| **1 component = 1 file** | Implementation, types, docs, examples, and manifest co-located. Fits in a single context window — by constraint, not by luck. |
 | **Type as the contract** | `strict: true`, discriminated unions, no `any`. Types are the primary documentation. |
 | **Copy & own** | No npm runtime dependency. A CLI injects code into your repo. You own it; LLMs can freely modify it. No black boxes. |
 | **MCP-first distribution** | An MCP server ships alongside the library, so agents (Claude Code, Cursor, …) fetch version-accurate specs without wasting tokens. |
+| **Machine-readable manifest** | Each component carries `{ intent, props, states, a11y, examples }` as structured data, so agents can *select and render* components — the foundation for generative UI — instead of being *told about* them. |
 | **Zero-config defaults** | Works correctly with no props. Escape hatches exist but are never required. |
 
 ## Tech stack (v0)
@@ -49,6 +50,7 @@ The five-step algorithm — applied in order, irreversibly:
 | **Tailwind CSS** | Class strings are directly readable and generatable by LLMs. |
 | **TypeScript strict** | Type = contract = primary documentation. |
 | **CLI injection + MCP server** | Zero black-box dependencies. |
+| **Minimal runtime dependencies** | Keeps the idiot index — actual cost over essential cost — low. |
 
 These are v0 decisions, not philosophy. They can be replaced for better reasons — but never in the direction of *more options*.
 
