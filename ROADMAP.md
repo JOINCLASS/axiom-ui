@@ -34,11 +34,11 @@ v0の最重要成果物は、コンポーネントそのものではなく **「
 - **ハードゲート（PRごと・決定的）**: token / bundle。閾値超過は機械的にマージ不可
 - **KPI（定期・LLM依存で非決定的）**: one-shot generation rate。PRゲートにはせず、nightly またはリリースごとに計測して追跡する
 
-- [ ] `token/component` 計測スクリプト（tokenizerベース）
-- [ ] `bundle/component` 計測スクリプト（コンポーネント単位のバイト数）
-- [ ] 上記2指標のCIゲート化：閾値超過のPRはマージ不可
-- [ ] one-shot generation rate ベンチマークの自動化（プロンプト集 → LLM生成 → 型チェック/テストで合否判定）。CIでのAPIキー管理とコスト上限の設計を含む
-- [ ] 削除比率のリリースごとの記録
+- [x] `token/component` 計測スクリプト（tokenizerベース）— `scripts/measure.ts`
+- [x] `bundle/component` 計測スクリプト（コンポーネント単位のバイト数）— 同上（vite buildでコンポーネント単体をminify計測）
+- [x] 上記2指標のCIゲート化：閾値超過のPRはマージ不可 — `.github/workflows/ci.yml` の `pnpm gate`（予算: 1500 tokens / 4096 bytes）
+- [x] one-shot generation rate ベンチマークの自動化（プロンプト集 → LLM生成 → 型チェック/テストで合否判定）— `evals/run.ts` + `.github/workflows/eval.yml`（週次+手動。APIキーはsecrets、未設定ならスキップ。コスト上限はケース数×max_tokensで抑制）
+- [x] 削除比率のリリースごとの記録 — `pnpm deletion-ratio <from> [to]`
 
 **完了条件**: 全PRが2つのハードゲート（token / bundle）で機械的に判定され、one-shot rate が定期計測されている。
 

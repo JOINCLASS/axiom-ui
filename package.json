@@ -6,14 +6,20 @@
   "scripts": {
     "dev": "vite playground --config vite.config.ts",
     "test": "vitest run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "gate": "node --experimental-strip-types scripts/measure.ts",
+    "eval": "node --experimental-strip-types evals/run.ts",
+    "deletion-ratio": "sh scripts/deletion-ratio.sh"
   },
   "devDependencies": {
+    "@anthropic-ai/sdk": "^0.111.0",
     "@tailwindcss/vite": "^4.3.2",
     "@testing-library/react": "^16.3.2",
+    "@types/node": "^26.1.1",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.3",
+    "gpt-tokenizer": "^3.4.0",
     "jsdom": "^29.1.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
