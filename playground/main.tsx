@@ -7,7 +7,9 @@ function save() {
   console.log("save");
 }
 
-const rendered: Record<string, ReactNode> = {
+type ExampleTitle = (typeof manifest.examples)[number]["title"];
+
+const rendered: Record<ExampleTitle, ReactNode> = {
   Default: <Button onClick={save}>Save</Button>,
   Disabled: <Button disabled>Save</Button>,
   "Full width via escape hatch": <Button className="w-full">Save</Button>,

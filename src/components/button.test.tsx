@@ -40,6 +40,20 @@ describe("Button", () => {
     expect(onClick).not.toHaveBeenCalled();
   });
 
+  it("forwards ref to the underlying button element", () => {
+    let element: HTMLButtonElement | null = null;
+    render(
+      <Button
+        ref={(node) => {
+          element = node;
+        }}
+      >
+        Save
+      </Button>,
+    );
+    expect(element).toBeInstanceOf(HTMLButtonElement);
+  });
+
   it("appends className after the defaults", () => {
     render(<Button className="w-full">Save</Button>);
     const classes = screen.getByRole("button").className;
