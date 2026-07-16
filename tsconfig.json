@@ -9,7 +9,9 @@
     "verbatimModuleSyntax": true,
     "noEmit": true,
     "skipLibCheck": true,
-    "types": ["vite/client"]
+    "allowImportingTsExtensions": true,
+    "types": ["vite/client", "node"]
   },
-  "include": ["src", "scripts", "playground"]
+  "include": ["src", "scripts", "playground", "evals"],
+  "exclude": ["evals/tmp"]
 }
