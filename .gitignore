@@ -3,3 +3,5 @@ dist/
 .playwright-mcp/
 evals/tmp/
 .gate-tmp/
+templates/
+manifests.json

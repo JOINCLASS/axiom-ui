@@ -5,7 +5,54 @@ English | [日本語](./README.ja.md)
 > An open-source UI library designed for the LLM as its primary consumer.
 > LLMを第一の消費者として設計する、オープンソースUIライブラリ。
 
-**Status: pre-v0 — design phase.** The philosophy is settled; the components are not yet written.
+**Status: v0.1.0 — 7 components, CLI, and MCP server ready. `npm publish` pending.**
+
+## Install
+
+> Until `@joinclass/axiom-ui` is published to npm, install directly from GitHub:
+> `npm install -D github:JOINCLASS/axiom-ui`
+
+```sh
+# One-shot: copy a component into your repo
+npx @joinclass/axiom-ui add button
+
+# Or install once and reuse
+npm install -D @joinclass/axiom-ui
+npx axiom-ui list
+```
+
+Requires Node.js 22+ and Tailwind CSS in the target project.
+
+## CLI
+
+| Command | Effect |
+|---|---|
+| `axiom-ui list` | Print every component with its short intent. |
+| `axiom-ui add <name> [--dir <path>] [--force]` | Copy `<name>.tsx` into your repo (defaults to `./src/components/`). Refuses to overwrite without `--force`. |
+| `axiom-ui mcp` | Start the MCP server on stdio (see below). |
+
+The CLI copies files **verbatim**. What ships is what the LLM saw — no post-processing, no dependency injection. You own the code after `add`.
+
+## MCP server
+
+Point Claude Code, Cursor, or any MCP-capable agent at `axiom-ui mcp` and it gets two tools:
+
+- `list_components` — every component's name and intent.
+- `get_component` — the full `.tsx` source plus the structured manifest for one component.
+
+Example Claude Code config (`~/.claude/mcp.json` or per-project `.mcp.json`):
+
+```json
+{
+  "mcpServers": {
+    "axiom-ui": { "command": "npx", "args": ["-y", "@joinclass/axiom-ui", "mcp"] }
+  }
+}
+```
+
+The agent discovers components via the manifest, reads the source once, and generates correct usage in a single shot — no docs URL to paste.
+
+`get_component` always returns the **original** source that shipped in the package version you installed. If you edit a component after running `add`, the MCP server won't reflect your local edits — it's a package-scope tool, not a workspace-scope one. This is intentional: the manifest describes what the library ships, not what you own.
 
 ---
 
