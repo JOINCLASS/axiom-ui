@@ -35,9 +35,10 @@ async function bundleBytes(file: string): Promise<number> {
       },
       rollupOptions: { external: ["react", "react/jsx-runtime", "react-dom"] },
     },
-  })) as Rollup.RollupOutput[];
+  })) as Rollup.RollupOutput | Rollup.RollupOutput[];
 
-  const chunks = result.flatMap((output) => output.output);
+  const outputs = Array.isArray(result) ? result : [result];
+  const chunks = outputs.flatMap((output) => output.output);
   return chunks.reduce(
     (total, chunk) =>
       total + Buffer.byteLength("code" in chunk ? chunk.code : chunk.source),

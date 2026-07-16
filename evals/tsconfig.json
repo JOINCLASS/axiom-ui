@@ -4,5 +4,5 @@
     "types": []
   },
   "include": ["tmp", "../src/components"],
-  "exclude": []
+  "exclude": [] // override parent exclude — the parent excludes evals/tmp; the judge needs to type-check it
 }

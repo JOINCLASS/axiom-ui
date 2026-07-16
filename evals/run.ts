@@ -87,9 +87,11 @@ let tscOutput = "";
 try {
   execFileSync("pnpm", ["exec", "tsc", "-p", join(evalsDir, "tsconfig.json")], {
     encoding: "utf8",
+    stdio: ["ignore", "pipe", "pipe"],
   });
 } catch (error) {
-  tscOutput = String((error as { stdout?: string }).stdout ?? "");
+  const err = error as { stdout?: string; stderr?: string };
+  tscOutput = String(err.stdout ?? "") + String(err.stderr ?? "");
 }
 
 const results = cases.map((evalCase) => {

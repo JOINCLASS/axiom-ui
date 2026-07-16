@@ -4,6 +4,6 @@
 set -e
 FROM=${1:?usage: deletion-ratio.sh <from-ref> [to-ref]}
 TO=${2:-HEAD}
-git diff --numstat "$FROM".."$TO" -- ':!pnpm-lock.yaml' |
+git diff --numstat "$FROM".."$TO" -- ':!pnpm-lock.yaml' ':!*.md' |
   awk '{ added += $1; deleted += $2 }
     END { printf "added %d, deleted %d, deletion ratio %.2f\n", added, deleted, added ? deleted / added : 0 }'

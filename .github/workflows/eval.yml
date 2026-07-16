@@ -8,6 +8,7 @@ on:
 jobs:
   one-shot-rate:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     env:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
     steps:
