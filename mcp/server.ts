@@ -14,7 +14,7 @@ import { componentSource, loadManifests } from "../cli/manifests.js";
 
 export async function runMcp(): Promise<void> {
   const server = new Server(
-    { name: "axiom-ui", version: "0.1.0" },
+    { name: "axiom-ui", version: "0.2.0" },
     { capabilities: { tools: {} } },
   );
 

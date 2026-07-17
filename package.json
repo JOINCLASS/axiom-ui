@@ -1,6 +1,6 @@
 {
   "name": "@joinclass/axiom-ui",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Copy-and-own React UI components designed for LLMs as the primary consumer. Ships a CLI and an MCP server.",
   "keywords": [
     "react",

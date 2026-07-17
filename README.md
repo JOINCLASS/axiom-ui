@@ -5,7 +5,7 @@ English | [日本語](./README.ja.md)
 > An open-source UI library designed for the LLM as its primary consumer.
 > LLMを第一の消費者として設計する、オープンソースUIライブラリ。
 
-**Status: [v0.1.0](https://www.npmjs.com/package/@joinclass/axiom-ui) — 7 components, CLI, and MCP server, on npm.**
+**Status: [v0.2.0](https://www.npmjs.com/package/@joinclass/axiom-ui) — 12 components, CLI, and MCP server, on npm.**
 
 ## Install
 
@@ -50,6 +50,29 @@ Example Claude Code config (`~/.claude/mcp.json` or per-project `.mcp.json`):
 The agent discovers components via the manifest, reads the source once, and generates correct usage in a single shot — no docs URL to paste.
 
 `get_component` always returns the **original** source that shipped in the package version you installed. If you edit a component after running `add`, the MCP server won't reflect your local edits — it's a package-scope tool, not a workspace-scope one. This is intentional: the manifest describes what the library ships, not what you own.
+
+## Components (12)
+
+**Form primitives**: `button`, `input`, `textarea`, `checkbox`, `select`, `combobox`
+**Layout / structure**: `dialog`, `tabs`
+**Overlay / feedback**: `popover`, `menu`, `tooltip`, `toast`
+
+Run `npx @joinclass/axiom-ui list` for the intent of each.
+
+## Recommended companions
+
+For domains where a third-party library already dominates, use it — Axiom does not ship an inferior in-house version:
+
+| Need | Use |
+|---|---|
+| Command palette (⌘K) | [cmdk](https://cmdk.paco.me) |
+| Data table (sort, filter, virtualize) | [TanStack Table](https://tanstack.com/table) |
+| Advanced date picker | [react-day-picker](https://react-day-picker.js.org) (native `<input type="date">` for the simple case) |
+| Forms & validation | [React Hook Form](https://react-hook-form.com) + [Zod](https://zod.dev) |
+| Charts | [Recharts](https://recharts.org) |
+| Toast queue / imperative `toast()` sugar | [Sonner](https://sonner.emilkowal.ski) |
+
+Native HTML already covers the following, so Axiom doesn't ship them either: `<details>` (accordion), `<progress>`, `<input type="range">` (slider), `<input type="date">` (date input), `<input type="file">` (file input), `<input type="radio">` (radio group), `<hr>`, `<aside>`, `<nav><ol>` (breadcrumb), `<table>` (simple), `<img>` (avatar).
 
 ---
 

@@ -5,7 +5,7 @@
 > An open-source UI library designed for the LLM as its primary consumer.
 > LLMを第一の消費者として設計する、オープンソースUIライブラリ。
 
-**Status: [v0.1.0](https://www.npmjs.com/package/@joinclass/axiom-ui) — 7コンポーネント・CLI・MCPサーバーがnpmで公開中。**
+**Status: [v0.2.0](https://www.npmjs.com/package/@joinclass/axiom-ui) — 12コンポーネント・CLI・MCPサーバーがnpmで公開中。**
 
 ## インストール
 
@@ -50,6 +50,29 @@ Claude Code の設定例（`~/.claude/mcp.json` またはプロジェクトの `
 エージェントは manifest からコンポーネントを発見し、ソースを一度だけ読んで、修正なしで正しい使い方を生成する — ドキュメントURLの貼り付けはもう不要。
 
 `get_component` が返すのは、あなたがインストールしたパッケージバージョンで**出荷された時点**のソース。`add` 後にローカルで編集しても MCPサーバー はそれを反映しない — パッケージスコープのツールであり、ワークスペーススコープではない。これは意図的な設計：manifest はライブラリが**出荷するもの**を記述するのであって、あなたが所有するものを記述するのではない。
+
+## コンポーネント（12）
+
+**フォームプリミティブ**: `button`, `input`, `textarea`, `checkbox`, `select`, `combobox`
+**レイアウト / 構造**: `dialog`, `tabs`
+**オーバーレイ / フィードバック**: `popover`, `menu`, `tooltip`, `toast`
+
+`npx @joinclass/axiom-ui list` で各コンポーネントのintentを表示できます。
+
+## 推奨コンパニオン（自作しない領域）
+
+サードパーティが既に事実上の標準を確立している領域は、Axiom は独自版を作らずそれを推奨します：
+
+| 用途 | 推奨 |
+|---|---|
+| コマンドパレット (⌘K) | [cmdk](https://cmdk.paco.me) |
+| データテーブル（ソート・フィルタ・仮想化） | [TanStack Table](https://tanstack.com/table) |
+| 高度な日付ピッカー | [react-day-picker](https://react-day-picker.js.org)（単純ならnative `<input type="date">`） |
+| フォームとバリデーション | [React Hook Form](https://react-hook-form.com) + [Zod](https://zod.dev) |
+| チャート | [Recharts](https://recharts.org) |
+| Toastのキュー / imperative `toast()` | [Sonner](https://sonner.emilkowal.ski) |
+
+以下はネイティブHTMLで足りるため Axiom には無し: `<details>`（アコーディオン）, `<progress>`, `<input type="range">`（スライダ）, `<input type="date">`, `<input type="file">`, `<input type="radio">`, `<hr>`, `<aside>`, `<nav><ol>`（パンくず）, `<table>`（単純）, `<img>`（アバター）。
 
 ---
 
