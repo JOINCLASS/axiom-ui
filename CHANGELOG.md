@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.2.0 — 2026-07-17
+
+Five new components after an honest audit of what a UI library actually needs beyond what native HTML + ARIA provide. The v0.1 "hard cap 7" was a heuristic; the strict-audit result revises it upward.
+
+### New components (7 → 12)
+
+- **`popover`** — Controlled wrapper around the native `<div popover>` element (Baseline 2024). Top-layer rendering, no z-index stacking. `open` + `onOpenChange` + optional `anchor` ref.
+- **`menu`** — Anchored menu on Popover with `role="menu"` / `role="menuitem"`, roving tabindex, ArrowUp/Down/Home/End keyboard nav, first-item autofocus on open.
+- **`tooltip`** — Wraps a trigger with hover (150ms delay) + focus handlers; associates content via `aria-describedby`.
+- **`toast`** — Stateless notification in the top layer (`popover="manual"`). Caller owns queue + timing. For imperative `toast()` sugar, use Sonner.
+- **`combobox`** — Controlled single-select with substring filter, arrow-key highlight, Enter to select, Escape to close, `aria-activedescendant` wired.
+
+### Recommended companions (still don't build)
+
+For domains where a third-party library already dominates, README now points readers there instead of shipping an inferior in-house version: Command Palette → cmdk, Data Table → TanStack Table, DatePicker (advanced) → react-day-picker, Forms → React Hook Form + Zod, Charts → Recharts, Toast queue/sugar → Sonner.
+
+### Rejected under the honest audit
+
+`native + className` covers these, so no component is warranted: Card, Divider, Container, Alert, Badge, Skeleton, Spinner, Label, Link, Progress, Slider, DatePicker input, FileInput, RadioGroup, Toggle, Accordion (`<details>`), Breadcrumb, Table (basic), Sheet (Dialog covers), Avatar, Aspect Ratio, ScrollArea.
+
+### Requires
+
+Unchanged from v0.1.0: Node.js 22+, React 19, Tailwind CSS v4 in the consuming project. The Popover-based components (Popover, Menu, Tooltip, Toast) additionally require a browser with the native Popover API — Chrome/Edge 114+, Safari 17.4+, Firefox 125+. Older browsers render the element inline (functional, not floating).
+
 ## 0.1.0 — 2026-07-16
 
 The v0 release. Everything described in `DESIGN_PHILOSOPHY.md`, minus the parts we deleted.

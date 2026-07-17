@@ -26,7 +26,7 @@ statSync(bin);
 const listOut = execFileSync("node", [bin, "list"], { encoding: "utf8", cwd: root });
 assert(/^button\b/m.test(listOut), "list: includes button");
 assert(/^tabs\b/m.test(listOut), "list: includes tabs");
-assert(listOut.split("\n").filter(Boolean).length === 7, "list: prints 7 components");
+assert(listOut.split("\n").filter(Boolean).length === 12, "list: prints 12 components");
 
 const tmp = mkdtempSync(join(tmpdir(), "axiom-smoke-"));
 try {

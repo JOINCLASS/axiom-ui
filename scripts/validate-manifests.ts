@@ -5,16 +5,26 @@
 import type { ComponentManifest } from "./manifest-schema";
 import { manifest as button } from "../src/components/button";
 import { manifest as checkbox } from "../src/components/checkbox";
+import { manifest as combobox } from "../src/components/combobox";
 import { manifest as dialog } from "../src/components/dialog";
 import { manifest as input } from "../src/components/input";
+import { manifest as menu } from "../src/components/menu";
+import { manifest as popover } from "../src/components/popover";
 import { manifest as select } from "../src/components/select";
 import { manifest as tabs } from "../src/components/tabs";
 import { manifest as textarea } from "../src/components/textarea";
+import { manifest as toast } from "../src/components/toast";
+import { manifest as tooltip } from "../src/components/tooltip";
 
 button satisfies ComponentManifest;
 checkbox satisfies ComponentManifest;
+combobox satisfies ComponentManifest;
 dialog satisfies ComponentManifest;
 input satisfies ComponentManifest;
+menu satisfies ComponentManifest;
+popover satisfies ComponentManifest;
 select satisfies ComponentManifest;
 tabs satisfies ComponentManifest;
 textarea satisfies ComponentManifest;
+toast satisfies ComponentManifest;
+tooltip satisfies ComponentManifest;
