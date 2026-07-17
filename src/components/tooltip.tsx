@@ -67,7 +67,7 @@ export const manifest = {
     'Tooltip that wraps a trigger element. Opens on hover (150ms delay) or focus, closes on unhover, blur, or Escape. Associates content back to the trigger via aria-describedby.',
   props: {
     content: "ReactNode. The tooltip body.",
-    children: "ReactNode. The trigger element(s), wrapped in an inline <span>.",
+    children: "ReactNode. The trigger element(s), wrapped in an inline-block <span> (attaches hover/focus handlers). Wrap a single inline/inline-block element — wrapping a block element may collapse its layout.",
     delay: "Optional number of milliseconds before opening on hover. Default 150. Focus opens immediately regardless.",
     className:
       "Escape hatch: appended to the tooltip content's default styling (dark background, white text, max-w-xs).",

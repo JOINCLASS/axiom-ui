@@ -73,27 +73,25 @@ export function MenuItem({ className, type = "button", ...props }: MenuItemProps
 
 export const manifest = {
   intent:
-    "Anchored menu on top of Popover. Menu = role=menu container; MenuItem = role=menuitem button. Caller flips `open` on trigger; each MenuItem's onClick fires. Arrow keys navigate; Escape / outside-click close.",
+    "Anchored menu on Popover. Caller flips `open`; each MenuItem's onClick fires. Arrow keys navigate; Escape / outside-click close.",
   props: {
     "Menu.open": "Required boolean.",
     "Menu.onOpenChange": "(open: boolean) => void — Popover close callback.",
     "Menu.anchor": "Optional RefObject<HTMLElement> — positions menu below.",
-    "Menu.*": "ComponentPropsWithRef<'div'> pass-through EXCEPT `ref`.",
-    "MenuItem.*": "Native <button> pass-through. type defaults to 'button'.",
-    className: "Escape hatch. Prefix `!` to override conflicting defaults.",
+    "Menu.*": "ComponentPropsWithRef<'div'> pass-through, no `ref` (Menu owns for autofocus).",
+    "MenuItem.*": "Native <button> pass-through; type defaults to 'button'.",
+    className: "Escape hatch. `!` prefix to override defaults.",
   },
   states: ["closed", "open"],
   a11y: [
     'role="menu" / role="menuitem" wired automatically.',
-    "On open, focus moves to first enabled item.",
-    "ArrowUp/Down wrap; Home/End jump; Enter/Space activate (native button).",
-    "Escape / outside-click close (Popover auto mode).",
-    "No submenu (nested) in v0.",
+    "On open, focus moves to first enabled item. ArrowUp/Down wrap; Home/End jump; Enter/Space activate.",
+    "Escape / outside-click close (Popover auto mode). No submenu (nested) in v0.",
   ],
   examples: [
     {
-      title: "Dropdown menu",
-      code: 'const trigger = useRef<HTMLButtonElement>(null);\nconst [open, setOpen] = useState(false);\n<>\n  <Button ref={trigger} onClick={() => setOpen(o => !o)}>Actions</Button>\n  <Menu open={open} onOpenChange={setOpen} anchor={trigger}>\n    <MenuItem onClick={() => { rename(); setOpen(false); }}>Rename</MenuItem>\n    <MenuItem disabled>Archive</MenuItem>\n  </Menu>\n</>',
+      title: "Dropdown",
+      code: 'const t = useRef<HTMLButtonElement>(null);\nconst [open, setOpen] = useState(false);\n<>\n  <Button ref={t} onClick={() => setOpen(o => !o)}>Actions</Button>\n  <Menu open={open} onOpenChange={setOpen} anchor={t}>\n    <MenuItem onClick={() => { rename(); setOpen(false); }}>Rename</MenuItem>\n    <MenuItem disabled>Archive</MenuItem>\n  </Menu>\n</>',
     },
   ],
 } as const;

@@ -32,7 +32,11 @@ export function Popover({ open, onOpenChange, anchor, className, ref: userRef, .
 
   useEffect(() => {
     const element = ref.current;
-    if (!element || !open || !anchor?.current) return;
+    if (!element) return;
+    if (!open || !anchor?.current) {
+      element.style.position = element.style.top = element.style.left = element.style.margin = "";
+      return;
+    }
     const rect = anchor.current.getBoundingClientRect();
     element.style.position = "fixed";
     element.style.top = `${rect.bottom + 4}px`;
@@ -84,6 +88,7 @@ export const manifest = {
     "Clicking outside closes it (auto mode).",
     "Give the popover an accessible role (menu, dialog, tooltip, ...) via the `role` prop when using it as a base for another primitive.",
     "Requires the native Popover API (Chrome/Edge 114+, Safari 17.4+, Firefox 125+). On older browsers the element renders as a plain <div> — functional but not floating.",
+    "Anchor positioning is naive (below + left edge of the anchor). No viewport-edge flipping in v0.2 — for menus near a screen edge, pass a `className` position override or wait for CSS anchor positioning support.",
   ],
   examples: [
     {

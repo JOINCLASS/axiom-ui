@@ -30,7 +30,7 @@ export function Toast({ open, className, role = "status", ...props }: ToastProps
       popover="manual"
       role={role}
       className={
-        "fixed right-4 bottom-4 max-w-sm rounded-md border border-zinc-200 bg-white p-4 text-sm text-zinc-900 shadow-lg" +
+        "!fixed !top-auto !right-4 !bottom-4 !left-auto !m-0 max-w-sm rounded-md border border-zinc-200 bg-white p-4 text-sm text-zinc-900 shadow-lg" +
         (className ? " " + className : "")
       }
       {...props}
@@ -47,7 +47,7 @@ export const manifest = {
     "...native":
       "Every ComponentPropsWithRef<'div'> attribute passes through (children, aria-*, ref, ...).",
     className:
-      "Escape hatch: appended after the defaults (fixed bottom-right, max-w-sm, white card). Override position with `!top-4`, `!left-4`, etc.",
+      "Escape hatch: appended after the defaults. Position defaults use `!` to beat the browser's popover UA styles (margin:auto; inset:0); override with your own `!top-4 !left-4` etc.",
   },
   states: ["closed", "open"],
   a11y: [
