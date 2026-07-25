@@ -1,0 +1,42 @@
+---
+import { groups, displayName } from "../lib/data";
+import { localePath, t, type Lang } from "../lib/i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const path = Astro.url.pathname;
+
+const docs = [
+  { href: localePath(lang, "/docs/"), label: t(lang, "Getting Started", "はじめに") },
+  { href: localePath(lang, "/docs/cli/"), label: "CLI" },
+  { href: localePath(lang, "/docs/mcp/"), label: t(lang, "MCP Server", "MCPサーバー") },
+  { href: localePath(lang, "/docs/philosophy/"), label: t(lang, "Design Philosophy", "設計思想") },
+];
+
+function linkClass(href: string): string {
+  return path === href
+    ? "block rounded px-2 py-1 bg-zinc-100 font-medium text-zinc-900"
+    : "block rounded px-2 py-1 text-zinc-600 hover:text-zinc-900";
+}
+---
+
+<aside class="sticky top-14 hidden h-[calc(100vh-3.5rem)] w-52 shrink-0 overflow-y-auto py-10 text-sm md:block">
+  <p class="mb-2 px-2 font-semibold">{t(lang, "Docs", "ドキュメント")}</p>
+  <nav class="mb-6 space-y-0.5">
+    {docs.map((item) => <a href={item.href} class={linkClass(item.href)}>{item.label}</a>)}
+  </nav>
+  {groups.map((group) => (
+    <>
+      <p class="mb-2 px-2 font-semibold">{lang === "ja" ? group.ja : group.en}</p>
+      <nav class="mb-6 space-y-0.5">
+        {group.components.map((name) => {
+          const href = localePath(lang, `/components/${name}/`);
+          return <a href={href} class={linkClass(href)}>{displayName(name)}</a>;
+        })}
+      </nav>
+    </>
+  ))}
+</aside>

@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@source "../../../src/components";
+
+/* Menu passes `flex` to its Popover, which overrides the UA's
+   [popover] { display: none } — re-hide closed popovers. */
+[popover]:not(:popover-open) {
+  display: none;
+}

@@ -1,0 +1,118 @@
+---
+import Base from "../layouts/Base.astro";
+import CodeBlock from "./CodeBlock.astro";
+import { localePath, t, type Lang } from "../lib/i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const features = [
+  {
+    en: { title: "Copy & own", body: "No npm runtime dependency. The CLI copies the component source into your repo — you own it, and LLMs can freely modify it." },
+    ja: { title: "コピー＆オーン", body: "npmランタイム依存なし。CLIがコンポーネントのソースをあなたのリポジトリにコピーします。コードはあなたのもので、LLMが自由に改変できます。" },
+  },
+  {
+    en: { title: "1 component = 1 file", body: "Implementation, types, docs, and examples co-located in a single file that fits in one context window — by constraint, not by luck." },
+    ja: { title: "1コンポーネント = 1ファイル", body: "実装・型・ドキュメント・使用例を1ファイルに同居。単一のcontext窓に収まることを設計制約にしています。" },
+  },
+  {
+    en: { title: "MCP-first distribution", body: "An MCP server ships with the library, so Claude Code, Cursor, and other agents fetch version-accurate specs without wasting tokens." },
+    ja: { title: "MCPファースト配布", body: "MCPサーバーを同梱。Claude CodeやCursorなどのエージェントが、バージョン整合の取れた仕様をトークンを無駄にせず取得できます。" },
+  },
+  {
+    en: { title: "Machine-readable manifest", body: "Every component carries { intent, props, states, a11y, examples } as structured data — the foundation for generative UI." },
+    ja: { title: "機械可読マニフェスト", body: "各コンポーネントが { intent, props, states, a11y, examples } を構造化データで保持。generative UIの土台です。" },
+  },
+];
+---
+
+<Base
+  lang={lang}
+  title={t(lang, "Axiom UI — AI-first React components", "Axiom UI — AIファーストのReactコンポーネント")}
+  description={t(
+    lang,
+    "An open-source UI library designed for the LLM as its primary consumer. 12 copy-and-own React components with a CLI and MCP server.",
+    "LLMを第一の消費者として設計するオープンソースUIライブラリ。コピーして所有する12個のReactコンポーネントと、CLI・MCPサーバーを提供。",
+  )}
+>
+  <main class="mx-auto max-w-6xl px-4">
+    <section class="py-20 text-center">
+      <h1 class="mx-auto max-w-3xl text-4xl font-bold tracking-tight sm:text-5xl">
+        {t(
+          lang,
+          "UI components designed for the LLM as the primary consumer",
+          "LLMを第一の消費者として設計するUIライブラリ",
+        )}
+      </h1>
+      <p class="mx-auto mt-5 max-w-2xl text-lg text-zinc-600">
+        {t(
+          lang,
+          "If shadcn/ui is accidentally AI-friendly, Axiom is AI-first by design. 12 copy-and-own React components, a CLI, and an MCP server.",
+          "shadcn/uiが「結果的にAIフレンドリー」なら、Axiomは「設計思想からAIファースト」。コピーして所有する12個のReactコンポーネントと、CLI・MCPサーバー。",
+        )}
+      </p>
+      <div class="mx-auto mt-8 max-w-md text-left">
+        <CodeBlock code="npx @joinclass/axiom-ui add button" lang="sh" />
+      </div>
+      <div class="mt-8 flex justify-center gap-3">
+        <a
+          href={localePath(lang, "/components/")}
+          class="rounded-md bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white hover:bg-zinc-700"
+        >
+          {t(lang, "Browse components", "コンポーネントを見る")}
+        </a>
+        <a
+          href={localePath(lang, "/docs/")}
+          class="rounded-md border border-zinc-300 px-5 py-2.5 text-sm font-medium hover:bg-zinc-50"
+        >
+          {t(lang, "Getting Started", "はじめる")}
+        </a>
+      </div>
+    </section>
+
+    <section class="grid gap-4 pb-16 sm:grid-cols-2">
+      {features.map((feature) => {
+        const { title, body } = lang === "ja" ? feature.ja : feature.en;
+        return (
+          <div class="rounded-lg border border-zinc-200 p-6">
+            <h2 class="font-semibold">{title}</h2>
+            <p class="mt-2 text-sm text-zinc-600">{body}</p>
+          </div>
+        );
+      })}
+    </section>
+
+    <section class="border-t border-zinc-200 py-16">
+      <h2 class="text-2xl font-bold">{t(lang, "The five-step algorithm", "5段階のアルゴリズム")}</h2>
+      <p class="mt-2 max-w-2xl text-zinc-600">
+        {t(
+          lang,
+          "Applied in order, irreversibly. Every design decision must raise the probability that an LLM generates the component correctly in one shot.",
+          "順序は不可逆。すべての設計判断は「LLMが一度で正しく生成する確率を上げるか？」という問いを通過します。",
+        )}
+      </p>
+      <ol class="mt-6 grid gap-3 text-sm sm:grid-cols-5">
+        {[
+          { en: "Question every requirement", ja: "要求を疑う" },
+          { en: "Delete", ja: "削除する" },
+          { en: "Simplify", ja: "簡素化する" },
+          { en: "Accelerate", ja: "高速化する" },
+          { en: "Automate — last", ja: "自動化する（最後に）" },
+        ].map((step, index) => (
+          <li class="rounded-lg border border-zinc-200 p-4">
+            <span class="font-mono text-xs text-zinc-400">0{index + 1}</span>
+            <p class="mt-1 font-medium">{lang === "ja" ? step.ja : step.en}</p>
+          </li>
+        ))}
+      </ol>
+      <p class="mt-6 text-sm text-zinc-500">
+        <a href={localePath(lang, "/docs/philosophy/")} class="underline hover:text-zinc-900">
+          {t(lang, "Read the full design philosophy →", "設計思想の全文を読む →")}
+        </a>
+      </p>
+    </section>
+  </main>
+</Base>

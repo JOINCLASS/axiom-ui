@@ -1,0 +1,19 @@
+---
+import Docs from "../../layouts/Docs.astro";
+import ComponentDoc from "../../components/ComponentDoc.astro";
+import { componentNames, manifests, displayName } from "../../lib/data";
+
+export function getStaticPaths() {
+  return componentNames.map((name) => ({ params: { name } }));
+}
+
+const { name } = Astro.params;
+---
+
+<Docs
+  lang="en"
+  title={`${displayName(name)} — Axiom UI`}
+  description={manifests[name]!.intent}
+>
+  <ComponentDoc lang="en" name={name} />
+</Docs>

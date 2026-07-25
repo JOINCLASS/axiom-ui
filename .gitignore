@@ -5,3 +5,5 @@ evals/tmp/
 .gate-tmp/
 templates/
 manifests.json
+.astro/
+.env

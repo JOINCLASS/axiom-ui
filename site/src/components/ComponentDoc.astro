@@ -1,0 +1,103 @@
+---
+import CodeBlock from "./CodeBlock.astro";
+import { ComponentDemo } from "./demos";
+import { manifests, sources, displayName } from "../lib/data";
+import { t, type Lang } from "../lib/i18n";
+
+interface Props {
+  lang: Lang;
+  name: string;
+}
+
+const { lang, name } = Astro.props;
+const manifest = manifests[name]!;
+const source = sources[name]!;
+---
+
+<article class="space-y-10">
+  <header>
+    <h1 class="text-3xl font-bold tracking-tight">{displayName(name)}</h1>
+    <p class="mt-2 max-w-2xl text-zinc-600">{manifest.intent}</p>
+  </header>
+
+  <section>
+    <h2 class="mb-3 text-xl font-semibold">{t(lang, "Preview", "プレビュー")}</h2>
+    <div class="rounded-lg border border-zinc-200 p-8">
+      <ComponentDemo name={name} client:load />
+    </div>
+  </section>
+
+  <section>
+    <h2 class="mb-3 text-xl font-semibold">{t(lang, "Install", "インストール")}</h2>
+    <CodeBlock code={`npx @joinclass/axiom-ui add ${name}`} lang="sh" />
+    <p class="mt-2 text-sm text-zinc-500">
+      {t(
+        lang,
+        `Copies ${name}.tsx into ./src/components/. You own the code after that.`,
+        `${name}.tsx を ./src/components/ にコピーします。以降のコードはあなたのものです。`,
+      )}
+    </p>
+  </section>
+
+  <section>
+    <h2 class="mb-3 text-xl font-semibold">{t(lang, "Props", "Props")}</h2>
+    <div class="overflow-x-auto rounded-lg border border-zinc-200">
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="border-b border-zinc-200 bg-zinc-50 text-left">
+            <th class="px-4 py-2 font-semibold">{t(lang, "Prop", "Prop")}</th>
+            <th class="px-4 py-2 font-semibold">{t(lang, "Description", "説明")}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Object.entries(manifest.props).map(([prop, description]) => (
+            <tr class="border-b border-zinc-100 last:border-0 align-top">
+              <td class="px-4 py-2 font-mono text-[13px] whitespace-nowrap">{prop}</td>
+              <td class="px-4 py-2 text-zinc-600">{description}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="mb-3 text-xl font-semibold">{t(lang, "Examples", "使用例")}</h2>
+    <div class="space-y-4">
+      {manifest.examples.map((example) => (
+        <div>
+          <p class="mb-1.5 text-sm font-medium text-zinc-700">{example.title}</p>
+          <CodeBlock code={example.code} lang="tsx" />
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section>
+    <h2 class="mb-3 text-xl font-semibold">{t(lang, "Accessibility", "アクセシビリティ")}</h2>
+    <ul class="list-disc space-y-1.5 pl-5 text-sm text-zinc-600">
+      {manifest.a11y.map((line) => <li>{line}</li>)}
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="mb-3 text-xl font-semibold">{t(lang, "States", "状態")}</h2>
+    <div class="flex flex-wrap gap-2">
+      {manifest.states.map((state) => (
+        <span class="rounded-full border border-zinc-200 bg-zinc-50 px-3 py-1 font-mono text-xs">{state}</span>
+      ))}
+    </div>
+  </section>
+
+  <section>
+    <h2 class="mb-3 text-xl font-semibold">{t(lang, "Source", "ソースコード")}</h2>
+    <p class="mb-3 text-sm text-zinc-500">
+      {t(
+        lang,
+        `The full source of ${name}.tsx — exactly what the CLI copies into your repo.`,
+        `${name}.tsx の全ソース。CLI がコピーするコードそのものです。`,
+      )}
+    </p>
+    <CodeBlock code={source.trimEnd()} lang="tsx" />
+  </section>
+</article>

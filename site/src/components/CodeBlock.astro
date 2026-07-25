@@ -1,0 +1,37 @@
+---
+import { Code } from "astro:components";
+
+interface Props {
+  code: string;
+  lang?: "tsx" | "sh" | "json";
+}
+
+const { code, lang = "tsx" } = Astro.props;
+---
+
+<div class="group relative">
+  <Code
+    code={code}
+    lang={lang}
+    theme="github-dark"
+    class="max-h-[32rem] overflow-auto rounded-lg p-4 text-[13px] leading-relaxed"
+  />
+  <button
+    type="button"
+    data-copy-code={code}
+    class="absolute top-2 right-2 rounded border border-zinc-600 bg-zinc-800 px-2 py-1 text-xs text-zinc-300 opacity-0 transition group-hover:opacity-100 hover:text-white"
+  >
+    Copy
+  </button>
+</div>
+
+<script>
+  document.addEventListener("click", async (event) => {
+    const button = (event.target as HTMLElement).closest<HTMLButtonElement>("[data-copy-code]");
+    if (!button) return;
+    await navigator.clipboard.writeText(button.dataset.copyCode ?? "");
+    const original = button.textContent;
+    button.textContent = "Copied!";
+    setTimeout(() => { button.textContent = original; }, 1500);
+  });
+</script>
