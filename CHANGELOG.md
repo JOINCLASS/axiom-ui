@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.1 — 2026-07-25
+
+Patch release: two visibility bugs in Popover-based components, found while building the official docs site (https://axiom-ui.joinclass.jp).
+
+### Fixed
+
+- **`tooltip`** — Tooltip text was invisible (zinc-900 on zinc-900). `bg-zinc-900 text-white` was appended to Popover's defaults without the `!` prefix the manifests themselves prescribe, so stylesheet order let the default `text-zinc-900` win. Now `!bg-zinc-900 !text-white`.
+- **`menu`** — A closed menu stayed visible. The unconditional `flex` utility overrode the UA's `[popover] { display: none }`. Display is now gated behind `[&:popover-open]:flex`.
+
 ## 0.2.0 — 2026-07-17
 
 Five new components after an honest audit of what a UI library actually needs beyond what native HTML + ARIA provide. The v0.1 "hard cap 7" was a heuristic; the strict-audit result revises it upward.
