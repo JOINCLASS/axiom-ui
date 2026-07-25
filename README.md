@@ -5,7 +5,8 @@ English | [日本語](./README.ja.md)
 > An open-source UI library designed for the LLM as its primary consumer.
 > LLMを第一の消費者として設計する、オープンソースUIライブラリ。
 
-**Status: [v0.2.0](https://www.npmjs.com/package/@joinclass/axiom-ui) — 12 components, CLI, and MCP server, on npm.**
+**Status: [v0.2.1](https://www.npmjs.com/package/@joinclass/axiom-ui) — 12 components, CLI, and MCP server, on npm.**
+**Docs: [axiom-ui.joinclass.jp](https://axiom-ui.joinclass.jp) — live catalog with previews, generated from the components themselves.**
 
 ## Install
 

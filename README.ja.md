@@ -5,7 +5,8 @@
 > An open-source UI library designed for the LLM as its primary consumer.
 > LLMを第一の消費者として設計する、オープンソースUIライブラリ。
 
-**Status: [v0.2.0](https://www.npmjs.com/package/@joinclass/axiom-ui) — 12コンポーネント・CLI・MCPサーバーがnpmで公開中。**
+**Status: [v0.2.1](https://www.npmjs.com/package/@joinclass/axiom-ui) — 12コンポーネント・CLI・MCPサーバーがnpmで公開中。**
+**Docs: [axiom-ui.joinclass.jp/ja/](https://axiom-ui.joinclass.jp/ja/) — ライブプレビュー付きカタログ（コンポーネント自身から自動生成）。**
 
 ## インストール
 
