@@ -52,7 +52,7 @@ export function Tooltip({ content, children, delay = 150, className }: TooltipPr
         onOpenChange={setOpen}
         anchor={anchor}
         className={
-          "max-w-xs bg-zinc-900 text-white shadow-md" +
+          "max-w-xs !bg-zinc-900 !text-white shadow-md" +
           (className ? " " + className : "")
         }
       >
