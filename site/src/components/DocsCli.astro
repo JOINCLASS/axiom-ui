@@ -1,0 +1,82 @@
+---
+import Docs from "../layouts/Docs.astro";
+import CodeBlock from "./CodeBlock.astro";
+import { t, type Lang } from "../lib/i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const commands = [
+  {
+    command: "axiom-ui list",
+    en: "Print every component with its short intent.",
+    ja: "全コンポーネントと簡単な説明を一覧表示します。",
+  },
+  {
+    command: "axiom-ui add <name> [--dir <path>] [--force]",
+    en: "Copy <name>.tsx into your repo (defaults to ./src/components/). Refuses to overwrite without --force.",
+    ja: "<name>.tsx をリポジトリにコピーします（デフォルトは ./src/components/）。--force なしでは上書きしません。",
+  },
+  {
+    command: "axiom-ui mcp",
+    en: "Start the MCP server on stdio.",
+    ja: "MCPサーバーをstdioで起動します。",
+  },
+];
+---
+
+<Docs
+  lang={lang}
+  title={t(lang, "CLI — Axiom UI", "CLI — Axiom UI")}
+  description={t(
+    lang,
+    "Axiom UI CLI reference: list, add, and mcp commands.",
+    "Axiom UI CLIリファレンス：list、add、mcpコマンド。",
+  )}
+>
+  <article class="space-y-10">
+    <header>
+      <h1 class="text-3xl font-bold tracking-tight">CLI</h1>
+      <p class="mt-2 max-w-2xl text-zinc-600">
+        {t(
+          lang,
+          "The CLI copies files verbatim. What ships is what the LLM saw — no post-processing, no dependency injection. You own the code after add.",
+          "CLIはファイルをそのままコピーします。配布されるものはLLMが見たものと同一です。後処理や依存の注入はなく、add 後のコードはあなたのものです。",
+        )}
+      </p>
+    </header>
+
+    <section>
+      <h2 class="mb-3 text-xl font-semibold">{t(lang, "Commands", "コマンド")}</h2>
+      <div class="overflow-x-auto rounded-lg border border-zinc-200">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-zinc-200 bg-zinc-50 text-left">
+              <th class="px-4 py-2 font-semibold">{t(lang, "Command", "コマンド")}</th>
+              <th class="px-4 py-2 font-semibold">{t(lang, "Effect", "効果")}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {commands.map((row) => (
+              <tr class="border-b border-zinc-100 last:border-0 align-top">
+                <td class="px-4 py-2 font-mono text-[13px] whitespace-nowrap">{row.command}</td>
+                <td class="px-4 py-2 text-zinc-600">{lang === "ja" ? row.ja : row.en}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="mb-3 text-xl font-semibold">{t(lang, "Examples", "使用例")}</h2>
+      <CodeBlock
+        code={`# List everything\nnpx @joinclass/axiom-ui list\n\n# Copy dialog.tsx into ./src/components/\nnpx @joinclass/axiom-ui add dialog\n\n# Copy into a custom directory\nnpx @joinclass/axiom-ui add toast --dir ./app/ui\n\n# Overwrite an existing file\nnpx @joinclass/axiom-ui add button --force`}
+        lang="sh"
+      />
+    </section>
+  </article>
+</Docs>

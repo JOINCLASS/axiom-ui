@@ -1,0 +1,175 @@
+---
+import Docs from "../layouts/Docs.astro";
+import { t, type Lang } from "../lib/i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const steps = [
+  {
+    en: { title: "1. Question every requirement", body: "Every prop, component, and option must justify its existence. A requirement nobody can justify is a dumb requirement, even if a smart person wrote it." },
+    ja: { title: "1. 要求を疑う", body: "すべてのprop、コンポーネント、設定に「なぜ必要か」を問う。答えられない要求は、賢い人が作ったとしても愚かな要求である。" },
+  },
+  {
+    en: { title: "2. Delete", body: "The best prop is no prop. One way to do each thing — variants are hallucination fuel. The best component is no component: if a native HTML/ARIA primitive suffices, don't wrap it." },
+    ja: { title: "2. 削除する", body: "最高のpropは「propがない」こと。1つのことをやる方法は1つだけ — バリアントはハルシネーションの燃料。最高のコンポーネントは「コンポーネントがない」こと。素のHTML/ARIAで足りるものはラップしない。" },
+  },
+  {
+    en: { title: "3. Simplify", body: "Polish only what survived deletion. Never optimize before deleting. What remains gets thick types and examples." },
+    ja: { title: "3. 簡素化する", body: "削除した後に残ったものだけを磨く。削る前に最適化しない。残ったAPIには型と使用例を厚く与える。" },
+  },
+  {
+    en: { title: "4. Accelerate", body: "Tokens and bytes per component are measured and gated in CI. Fat components don't merge. This is what lets an LLM read a whole file cheaply and fast." },
+    ja: { title: "4. 高速化する", body: "コンポーネント1個あたりのtoken数とバンドルサイズを計測し、CIでゲート化する。太ったコンポーネントはマージしない。" },
+  },
+  {
+    en: { title: "5. Automate — last", body: "MCP server, CLI, and doc generation come only after deletion and unification. Never automate what shouldn't exist." },
+    ja: { title: "5. 自動化する — 最後に", body: "MCPサーバー、CLI、ドキュメント生成は、削って一本化した後に作る。存在すべきでないもののための自動化は作らない。" },
+  },
+];
+
+const decisions = [
+  {
+    en: { title: "1 component = 1 file", body: "Implementation, types, docs, examples, and manifest co-located. Fitting in a single context window is a design constraint, not luck." },
+    ja: { title: "1コンポーネント = 1ファイル", body: "実装・型・ドキュメント・使用例・機械可読manifestを同一ファイルに配置。「context窓に丸ごと入る」ことを設計制約とする。" },
+  },
+  {
+    en: { title: "Type as the contract", body: "strict: true, discriminated unions, no any. Types are the primary documentation — an LLM can emit correct code by reading types alone." },
+    ja: { title: "型が契約", body: "strict: true 前提。状態はdiscriminated unionで表現し、anyを禁止。型定義そのものが一次ドキュメントとして機能する。" },
+  },
+  {
+    en: { title: "Copy & own", body: "No npm runtime dependency. A CLI injects code into your repo. You own it — no black boxes, and LLMs can freely modify it." },
+    ja: { title: "コピー＆オーン", body: "npmランタイム依存ではなく、CLIでユーザーのリポジトリにコードを注入する。ユーザーがコードを所有する = ブラックボックスなし = LLMが自由に改変できる。" },
+  },
+  {
+    en: { title: "MCP-first distribution", body: "An MCP server ships alongside the library, so agents fetch version-accurate specs without wasting tokens. The 'paste the docs URL' step is deleted." },
+    ja: { title: "MCPファースト配布", body: "ライブラリ本体と同時にMCPサーバーを提供。エージェントがバージョン整合の取れた仕様をtoken無駄なく取得できる。「docsを貼る」作業自体を消す。" },
+  },
+  {
+    en: { title: "Machine-readable manifest", body: "Each component carries { intent, props, states, a11y, examples } as structured data, so agents can select and render components — the foundation for generative UI." },
+    ja: { title: "機械可読manifest", body: "各コンポーネントが { intent, props, states, a11y, examples } を構造化データで持つ。エージェントがコンポーネントを「説明」ではなく「選択して描画」できる土台にする。" },
+  },
+  {
+    en: { title: "Zero-config defaults", body: "Works correctly with no props. Escape hatches exist but are never required." },
+    ja: { title: "ゼロコンフィグ・デフォルト", body: "propなしで正しく動く。エスケープハッチは用意するが、必須にはしない。" },
+  },
+];
+
+const metrics = [
+  { code: "token/component", en: "the average component fits in a single context window.", ja: "平均コンポーネントが単一のcontext窓に収まること。" },
+  { code: "bundle/component", en: "bytes per component are tracked and never regress.", ja: "コンポーネント単位のバイト数を追跡し、退行させない。" },
+  { code: "one-shot generation rate", en: "the primary KPI — how often an LLM generates correct code with zero fixes.", ja: "主要KPI — LLMが修正なしで正しいコードを生成する割合。" },
+  { code: "deletion ratio", en: "lines deleted vs. lines added, recorded per release.", ja: "リリースごとの、追加行数に対する削除行数の比。" },
+];
+---
+
+<Docs
+  lang={lang}
+  title={t(lang, "Design Philosophy — Axiom UI", "設計思想 — Axiom UI")}
+  description={t(
+    lang,
+    "Why Axiom UI is optimized for generation, comprehension, and modification by LLMs.",
+    "Axiom UIがLLMによる生成・理解・改変に最適化されている理由。",
+  )}
+>
+  <article class="space-y-12">
+    <header>
+      <h1 class="text-3xl font-bold tracking-tight">{t(lang, "Design Philosophy", "設計思想")}</h1>
+      <p class="mt-2 max-w-2xl text-zinc-600">
+        {t(
+          lang,
+          "Every existing UI library is optimized for human DX. Axiom UI is optimized, from first principles, for generation, comprehension, and modification by LLMs. Humans are the secondary beneficiaries.",
+          "既存のUIライブラリは人間のDXに最適化されている。Axiom UIはLLMによる生成・理解・改変に最初から最適化する。人間はその副次的な受益者になる。",
+        )}
+      </p>
+    </header>
+
+    <section>
+      <h2 class="mb-3 text-xl font-semibold">{t(lang, "The Inversion", "反転（The Inversion）")}</h2>
+      <p class="max-w-2xl text-sm leading-relaxed text-zinc-600">
+        {t(
+          lang,
+          "The primary reader of code is no longer only human. Abstractions built for human cognitive load — deep inheritance, polymorphism, endless config options — become debt for LLMs: they fuel hallucination and waste context and tokens. Axiom carries none of that debt. Every design decision must pass one question:",
+          "コードの主要な読み手はもはや人間だけではない。人間の認知負荷向けに積み上げられた抽象化（深い継承、多態、無数の設定オプション）は、LLMにとってはハルシネーションを増やし、context窓とtokenを浪費する負債になる。Axiomはこの負債を持たない。設計上の全判断は、次の問いを通過する：",
+        )}
+      </p>
+      <blockquote class="mt-4 max-w-2xl border-l-4 border-zinc-300 pl-4 text-sm italic text-zinc-700">
+        {t(
+          lang,
+          "\"Does this decision raise or lower the probability that an LLM generates this component correctly in one shot?\"",
+          "「この決定は、LLMがこのコンポーネントを一度で正しく生成する確率を上げるか、下げるか？」",
+        )}
+      </blockquote>
+      <p class="mt-4 text-sm text-zinc-600">
+        {t(lang, "If it doesn't raise it, we don't build it.", "上げないものは実装しない。")}
+      </p>
+    </section>
+
+    <section>
+      <h2 class="mb-4 text-xl font-semibold">{t(lang, "The five-step algorithm", "設計原則 — 5段階のアルゴリズム")}</h2>
+      <p class="mb-4 max-w-2xl text-sm text-zinc-600">
+        {t(lang, "Applied in order, irreversibly.", "順序は不可逆である。")}
+      </p>
+      <div class="space-y-4">
+        {steps.map((step) => {
+          const { title, body } = lang === "ja" ? step.ja : step.en;
+          return (
+            <div class="rounded-lg border border-zinc-200 p-5">
+              <h3 class="font-semibold">{title}</h3>
+              <p class="mt-1.5 text-sm text-zinc-600">{body}</p>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+
+    <section>
+      <h2 class="mb-4 text-xl font-semibold">{t(lang, "Architectural consequences", "アーキテクチャの帰結")}</h2>
+      <div class="grid gap-4 sm:grid-cols-2">
+        {decisions.map((decision) => {
+          const { title, body } = lang === "ja" ? decision.ja : decision.en;
+          return (
+            <div class="rounded-lg border border-zinc-200 p-5">
+              <h3 class="font-semibold">{title}</h3>
+              <p class="mt-1.5 text-sm text-zinc-600">{body}</p>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+
+    <section>
+      <h2 class="mb-3 text-xl font-semibold">{t(lang, "Non-goals", "Non-Goals（作らないもの）")}</h2>
+      <ul class="list-disc space-y-1.5 pl-5 text-sm text-zinc-600">
+        <li>{t(lang, "Infinite theme customization (one good default instead)", "テーマの無限カスタマイズ機構（1つの良いデフォルトを持つ）")}</li>
+        <li>{t(lang, "Multi-framework support (in v0)", "複数フレームワーク同時サポート（v0では）")}</li>
+        <li>{t(lang, "Anything claiming to \"cover every use case\"", "「あらゆるユースケースに対応」を謳うことすべて")}</li>
+        <li>{t(lang, "A second API for the same purpose", "同じ目的を果たす2つ目のAPI")}</li>
+        <li>{t(lang, "Config options for features nobody asked for", "使われるか不明な機能のための設定オプション")}</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="mb-3 text-xl font-semibold">{t(lang, "Success metrics", "成功の測定基準")}</h2>
+      <p class="mb-3 text-sm text-zinc-600">{t(lang, "Measured, not felt:", "主観ではなく数値で判定する：")}</p>
+      <ul class="space-y-1.5 text-sm text-zinc-600">
+        {metrics.map((metric) => (
+          <li>
+            <code class="font-mono text-[13px] text-zinc-900">{metric.code}</code> — {lang === "ja" ? metric.ja : metric.en}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <p class="border-t border-zinc-200 pt-6 text-sm italic text-zinc-500">
+      {t(
+        lang,
+        "The best part is no part. The best process is no process. — This library is an attempt to apply that to UI.",
+        "The best part is no part. The best process is no process. — 本ライブラリは、これをUIに適用する試みである。",
+      )}
+    </p>
+  </article>
+</Docs>

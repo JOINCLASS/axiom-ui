@@ -1,0 +1,40 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import type { Lang } from "../lib/i18n";
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+}
+
+const { lang, title, description } = Astro.props;
+const path = Astro.url.pathname;
+const basePath = path.startsWith("/ja/") ? path.slice(3) : path === "/ja" ? "/" : path;
+const enUrl = new URL(basePath, Astro.site);
+const jaUrl = new URL(basePath === "/" ? "/ja/" : `/ja${basePath}`, Astro.site);
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(path, Astro.site)} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="ja" href={jaUrl} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body class="bg-white text-zinc-900 antialiased">
+    <Header lang={lang} />
+    <slot />
+    <footer class="border-t border-zinc-200 py-8 text-center text-sm text-zinc-500">
+      <p>
+        MIT License — <a href="https://github.com/JOINCLASS/axiom-ui" class="underline hover:text-zinc-900">JOINCLASS/axiom-ui</a>
+      </p>
+    </footer>
+  </body>
+</html>

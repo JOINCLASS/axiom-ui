@@ -1,0 +1,24 @@
+{
+  "name": "@joinclass/axiom-ui-site",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "deploy": "sh deploy.sh"
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.4.0",
+    "@tailwindcss/vite": "^4.3.2",
+    "astro": "^5.17.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "tailwindcss": "^4.3.2"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3"
+  }
+}

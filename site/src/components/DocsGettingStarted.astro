@@ -1,0 +1,98 @@
+---
+import Docs from "../layouts/Docs.astro";
+import CodeBlock from "./CodeBlock.astro";
+import { localePath, t, type Lang } from "../lib/i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<Docs
+  lang={lang}
+  title={t(lang, "Getting Started — Axiom UI", "はじめに — Axiom UI")}
+  description={t(
+    lang,
+    "Install Axiom UI components with the CLI. Requires Node.js 22+ and Tailwind CSS.",
+    "CLIでAxiom UIコンポーネントをインストール。Node.js 22+とTailwind CSSが必要です。",
+  )}
+>
+  <article class="space-y-10">
+    <header>
+      <h1 class="text-3xl font-bold tracking-tight">{t(lang, "Getting Started", "はじめに")}</h1>
+      <p class="mt-2 max-w-2xl text-zinc-600">
+        {t(
+          lang,
+          "Axiom UI is not installed as a dependency — components are copied into your repo, and you own them.",
+          "Axiom UIは依存パッケージとしてインストールしません。コンポーネントはあなたのリポジトリにコピーされ、あなたが所有します。",
+        )}
+      </p>
+    </header>
+
+    <section>
+      <h2 class="mb-3 text-xl font-semibold">{t(lang, "Requirements", "前提条件")}</h2>
+      <ul class="list-disc space-y-1.5 pl-5 text-sm text-zinc-600">
+        <li>Node.js 22+</li>
+        <li>{t(lang, "React 19 project", "React 19 プロジェクト")}</li>
+        <li>{t(lang, "Tailwind CSS configured in the target project", "対象プロジェクトにTailwind CSSが設定済みであること")}</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="mb-3 text-xl font-semibold">{t(lang, "Add a component", "コンポーネントを追加する")}</h2>
+      <p class="mb-3 text-sm text-zinc-600">
+        {t(lang, "One-shot — copy a component into your repo:", "ワンショットでコンポーネントをリポジトリにコピー：")}
+      </p>
+      <CodeBlock code="npx @joinclass/axiom-ui add button" lang="sh" />
+      <p class="mt-4 mb-3 text-sm text-zinc-600">
+        {t(lang, "Or install once and reuse:", "または一度インストールして使い回す：")}
+      </p>
+      <CodeBlock code={`npm install -D @joinclass/axiom-ui\nnpx axiom-ui list\nnpx axiom-ui add dialog`} lang="sh" />
+      <p class="mt-4 text-sm text-zinc-600">
+        {t(
+          lang,
+          "add copies <name>.tsx into ./src/components/ by default. The CLI copies files verbatim — no post-processing, no dependency injection.",
+          "add はデフォルトで <name>.tsx を ./src/components/ にコピーします。CLIはファイルをそのままコピーします。後処理や依存の注入はありません。",
+        )}
+      </p>
+    </section>
+
+    <section>
+      <h2 class="mb-3 text-xl font-semibold">{t(lang, "Use it", "使う")}</h2>
+      <CodeBlock
+        code={`import { Button } from "./components/button";\n\nexport function Page() {\n  return <Button onClick={save}>Save</Button>;\n}`}
+        lang="tsx"
+      />
+      <p class="mt-4 text-sm text-zinc-600">
+        {t(
+          lang,
+          "Every component works correctly with no props. Escape hatches (className) exist but are never required.",
+          "すべてのコンポーネントはpropなしで正しく動きます。エスケープハッチ（className）はありますが、必須ではありません。",
+        )}
+      </p>
+    </section>
+
+    <section>
+      <h2 class="mb-3 text-xl font-semibold">{t(lang, "Next steps", "次のステップ")}</h2>
+      <ul class="list-disc space-y-1.5 pl-5 text-sm text-zinc-600">
+        <li>
+          <a href={localePath(lang, "/components/")} class="underline hover:text-zinc-900">
+            {t(lang, "Browse all 12 components", "全12コンポーネントを見る")}
+          </a>
+        </li>
+        <li>
+          <a href={localePath(lang, "/docs/mcp/")} class="underline hover:text-zinc-900">
+            {t(lang, "Connect the MCP server to Claude Code or Cursor", "MCPサーバーをClaude CodeやCursorに接続する")}
+          </a>
+        </li>
+        <li>
+          <a href={localePath(lang, "/docs/cli/")} class="underline hover:text-zinc-900">
+            {t(lang, "CLI reference", "CLIリファレンス")}
+          </a>
+        </li>
+      </ul>
+    </section>
+  </article>
+</Docs>

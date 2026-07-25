@@ -1,0 +1,49 @@
+---
+import Docs from "../layouts/Docs.astro";
+import { ComponentDemo } from "./demos";
+import { groups, manifests, displayName } from "../lib/data";
+import { localePath, t, type Lang } from "../lib/i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<Docs
+  lang={lang}
+  title={t(lang, "Components — Axiom UI", "コンポーネント — Axiom UI")}
+  description={t(
+    lang,
+    "All 12 Axiom UI components with live previews.",
+    "Axiom UI の全12コンポーネントをライブプレビュー付きで一覧できます。",
+  )}
+>
+  <h1 class="text-3xl font-bold tracking-tight">{t(lang, "Components", "コンポーネント")}</h1>
+  <p class="mt-2 max-w-2xl text-zinc-600">
+    {t(
+      lang,
+      "12 copy-and-own components. Click any card for install command, props, examples, and full source.",
+      "コピーして所有する12個のコンポーネント。カードをクリックすると、インストールコマンド・Props・使用例・全ソースを確認できます。",
+    )}
+  </p>
+  {groups.map((group) => (
+    <section class="mt-10">
+      <h2 class="mb-4 text-xl font-semibold">{lang === "ja" ? group.ja : group.en}</h2>
+      <div class="grid gap-4 sm:grid-cols-2">
+        {group.components.map((name) => (
+          <div class="flex flex-col rounded-lg border border-zinc-200 transition hover:border-zinc-400">
+            <a href={localePath(lang, `/components/${name}/`)} class="border-b border-zinc-100 px-4 py-3">
+              <h3 class="font-semibold">{displayName(name)}</h3>
+              <p class="mt-1 line-clamp-2 text-sm text-zinc-500">{manifests[name]!.intent}</p>
+            </a>
+            <div class="flex flex-1 items-center px-4 py-5">
+              <ComponentDemo name={name} client:visible />
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  ))}
+</Docs>

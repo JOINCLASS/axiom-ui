@@ -1,0 +1,78 @@
+---
+import Docs from "../layouts/Docs.astro";
+import CodeBlock from "./CodeBlock.astro";
+import { t, type Lang } from "../lib/i18n";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+---
+
+<Docs
+  lang={lang}
+  title={t(lang, "MCP Server — Axiom UI", "MCPサーバー — Axiom UI")}
+  description={t(
+    lang,
+    "Point Claude Code, Cursor, or any MCP-capable agent at Axiom UI's MCP server for version-accurate component specs.",
+    "Claude CodeやCursorなどのMCP対応エージェントをAxiom UIのMCPサーバーに接続し、バージョン整合の取れたコンポーネント仕様を取得。",
+  )}
+>
+  <article class="space-y-10">
+    <header>
+      <h1 class="text-3xl font-bold tracking-tight">{t(lang, "MCP Server", "MCPサーバー")}</h1>
+      <p class="mt-2 max-w-2xl text-zinc-600">
+        {t(
+          lang,
+          "Point Claude Code, Cursor, or any MCP-capable agent at axiom-ui mcp. The agent discovers components via the manifest, reads the source once, and generates correct usage in a single shot — no docs URL to paste.",
+          "Claude CodeやCursorなどのMCP対応エージェントを axiom-ui mcp に接続します。エージェントはマニフェスト経由でコンポーネントを発見し、ソースを一度読むだけで正しい使い方を一発で生成します。docsのURLを貼る作業は不要です。",
+        )}
+      </p>
+    </header>
+
+    <section>
+      <h2 class="mb-3 text-xl font-semibold">{t(lang, "Tools", "提供ツール")}</h2>
+      <ul class="list-disc space-y-1.5 pl-5 text-sm text-zinc-600">
+        <li>
+          <code class="font-mono text-[13px]">list_components</code> —
+          {t(lang, "every component's name and intent.", "全コンポーネントの名前と説明。")}
+        </li>
+        <li>
+          <code class="font-mono text-[13px]">get_component</code> —
+          {t(
+            lang,
+            "the full .tsx source plus the structured manifest for one component.",
+            "1コンポーネントの完全な .tsx ソースと構造化マニフェスト。",
+          )}
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="mb-3 text-xl font-semibold">{t(lang, "Claude Code configuration", "Claude Codeの設定")}</h2>
+      <p class="mb-3 text-sm text-zinc-600">
+        {t(
+          lang,
+          "Add to ~/.claude/mcp.json or a per-project .mcp.json:",
+          "~/.claude/mcp.json またはプロジェクトごとの .mcp.json に追加：",
+        )}
+      </p>
+      <CodeBlock
+        code={`{\n  "mcpServers": {\n    "axiom-ui": { "command": "npx", "args": ["-y", "@joinclass/axiom-ui", "mcp"] }\n  }\n}`}
+        lang="json"
+      />
+    </section>
+
+    <section>
+      <h2 class="mb-3 text-xl font-semibold">{t(lang, "Package scope, not workspace scope", "パッケージスコープであること")}</h2>
+      <p class="max-w-2xl text-sm text-zinc-600">
+        {t(
+          lang,
+          "get_component always returns the original source that shipped in the package version you installed. If you edit a component after running add, the MCP server won't reflect your local edits. This is intentional: the manifest describes what the library ships, not what you own.",
+          "get_component は常に、インストールしたパッケージバージョンに同梱された元のソースを返します。add 後にコンポーネントを編集しても、MCPサーバーはローカルの変更を反映しません。これは意図的な設計です。マニフェストはライブラリが配布するものを記述するのであって、あなたが所有するものを記述するのではありません。",
+        )}
+      </p>
+    </section>
+  </article>
+</Docs>

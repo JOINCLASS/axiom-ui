@@ -1,0 +1,22 @@
+---
+import Base from "./Base.astro";
+import Sidebar from "../components/Sidebar.astro";
+import type { Lang } from "../lib/i18n";
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+}
+
+const { lang, title, description } = Astro.props;
+---
+
+<Base lang={lang} title={title} description={description}>
+  <div class="mx-auto flex max-w-6xl gap-10 px-4">
+    <Sidebar lang={lang} />
+    <main class="min-w-0 flex-1 py-10">
+      <slot />
+    </main>
+  </div>
+</Base>
