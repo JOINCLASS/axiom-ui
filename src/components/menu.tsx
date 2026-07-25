@@ -50,7 +50,7 @@ export function Menu({ open, onOpenChange, anchor, className, onKeyDown, ...prop
         else next = items[(index - 1 + items.length) % items.length];
         next?.focus();
       }}
-      className={"flex min-w-40 flex-col gap-0.5 p-1" + (className ? " " + className : "")}
+      className={"min-w-40 flex-col gap-0.5 p-1 [&:popover-open]:flex" + (className ? " " + className : "")}
       {...props}
     />
   );
