@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.2 — 2026-07-25
+
+Docs-only release, no code changes.
+
+- README now points at the official docs site — [axiom-ui.joinclass.jp](https://axiom-ui.joinclass.jp) — a live catalog with previews, generated at build time from each component's `manifest` export and source.
+- `package.json` homepage moved from the GitHub repo to the docs site.
+
 ## 0.2.1 — 2026-07-25
 
 Patch release: two visibility bugs in Popover-based components, found while building the official docs site (https://axiom-ui.joinclass.jp).
