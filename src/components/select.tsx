@@ -4,6 +4,10 @@
  * custom chevrons and custom (non-native) dropdowns were considered
  * and rejected. Native gets you mobile pickers, keyboard nav, and
  * screen-reader announcements for free.
+ *
+ * Long lists (dozens of options, e.g. customers or offices) are hard to
+ * scan in a native picker and can only be searched by first letter.
+ * Use Combobox there: same job, but the user types to filter.
  */
 import type { ComponentPropsWithRef } from "react";
 
@@ -23,7 +27,7 @@ export function Select({ className, ...props }: SelectProps) {
 
 export const manifest = {
   intent:
-    "Styled wrapper around the native <select>. Pass <option> children. No custom dropdown — mobile-native, keyboard-native, screen-reader-native.",
+    "Styled wrapper around the native <select>. Pass <option> children. No custom dropdown — mobile-native, keyboard-native, screen-reader-native. For long lists the user must search (dozens of options), use Combobox instead.",
   props: {
     "...native":
       "Every ComponentPropsWithRef<'select'> attribute passes through unchanged (value, onChange, name, multiple, aria-*, ref, ...).",
