@@ -153,6 +153,10 @@ Claude Code の設定例（`~/.claude/mcp.json` またはプロジェクトの `
 
 いずれかで詰まるなら、それはまだマージの準備ができていない。
 
+## 書籍で学ぶ
+
+MCPサーバー開発の入門書『[Claude Code × MCP サーバー開発入門](https://zenn.dev/joinclass/books/claude-code-mcp-development)』があります（Zennで無料章あり）。
+
 ---
 
 *The best part is no part. The best process is no process. — 本ライブラリは、これをUIに適用する試みである。*

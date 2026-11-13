@@ -153,6 +153,10 @@ Before requesting review, every PR must answer:
 
 If you're stuck on any of these, it's not ready to merge.
 
+## Learn MCP (Japanese)
+
+New to building MCP servers? An introductory book in Japanese: [Claude Code × MCP サーバー開発入門](https://zenn.dev/joinclass/books/claude-code-mcp-development) (free chapters on Zenn).
+
 ---
 
 *The best part is no part. The best process is no process. — This library is an attempt to apply that to UI.*
