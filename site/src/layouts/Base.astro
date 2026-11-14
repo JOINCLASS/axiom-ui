@@ -15,6 +15,7 @@ const basePath = path.startsWith("/ja/") ? path.slice(3) : path === "/ja" ? "/" 
 const enUrl = new URL(basePath, Astro.site);
 const jaUrl = new URL(basePath === "/" ? "/ja/" : `/ja${basePath}`, Astro.site);
 const canonicalUrl = new URL(path, Astro.site);
+const companyUrl = "https://joinclass.co.jp/?utm_source=axiom-ui";
 ---
 
 <!doctype html>
@@ -42,6 +43,16 @@ const canonicalUrl = new URL(path, Astro.site);
     <footer class="border-t border-zinc-200 py-8 text-center text-sm text-zinc-500">
       <p>
         MIT License — <a href="https://github.com/JOINCLASS/axiom-ui" class="underline hover:text-zinc-900">JOINCLASS/axiom-ui</a>
+      </p>
+      <p class="mt-2">
+        {lang === "ja" ? (
+          <>
+            開発・提供: <a href={companyUrl} class="underline hover:text-zinc-900">合同会社ジョインクラス</a>
+            （React・AI を使った業務システム開発のご相談は<a href={`${companyUrl}#form`} class="underline hover:text-zinc-900">こちら</a>）
+          </>
+        ) : (
+          <>Built by <a href={companyUrl} class="underline hover:text-zinc-900">JOINCLASS LLC</a></>
+        )}
       </p>
     </footer>
   </body>
