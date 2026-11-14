@@ -7,12 +7,12 @@ export type Manifest = {
 };
 
 const manifestModules = import.meta.glob<Manifest>(
-  ["../../../src/components/*.tsx", "!**/*.test.tsx"],
+  ["../../../src/components/*.tsx", "!../../../src/components/*.test.tsx"],
   { import: "manifest", eager: true },
 );
 
 const rawSources = import.meta.glob<string>(
-  ["../../../src/components/*.tsx", "!**/*.test.tsx"],
+  ["../../../src/components/*.tsx", "!../../../src/components/*.test.tsx"],
   { query: "?raw", import: "default", eager: true },
 );
 

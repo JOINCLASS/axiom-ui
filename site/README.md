@@ -6,6 +6,8 @@ the `manifest` export and raw source of `../src/components/*.tsx`.
 
 ## Develop
 
+Requires Node.js >= 22.23.4 (Astro 7).
+
 ```sh
 cd site
 pnpm install
