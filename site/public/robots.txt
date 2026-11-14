@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://axiom-ui.joinclass.jp/sitemap.xml

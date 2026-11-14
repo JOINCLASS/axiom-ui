@@ -14,6 +14,7 @@ const path = Astro.url.pathname;
 const basePath = path.startsWith("/ja/") ? path.slice(3) : path === "/ja" ? "/" : path;
 const enUrl = new URL(basePath, Astro.site);
 const jaUrl = new URL(basePath === "/" ? "/ja/" : `/ja${basePath}`, Astro.site);
+const canonicalUrl = new URL(path, Astro.site);
 ---
 
 <!doctype html>
@@ -23,7 +24,14 @@ const jaUrl = new URL(basePath === "/" ? "/ja/" : `/ja${basePath}`, Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={new URL(path, Astro.site)} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Axiom UI" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:locale" content={lang === "ja" ? "ja_JP" : "en_US"} />
+    <meta name="twitter:card" content="summary" />
     <link rel="alternate" hreflang="en" href={enUrl} />
     <link rel="alternate" hreflang="ja" href={jaUrl} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
